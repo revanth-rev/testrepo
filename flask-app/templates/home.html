@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body {
+         margin: 0;
+         background: white;
+        }
+        a{
+            text-decoration: none;
+        }
+        .accept {
+            color: #FFF;
+            background: #44CC44;
+            padding: 3px 4px;
+            box-shadow: 0 4px 0 0 #2EA62E;
+        }
+        .accept:hover {
+            background: #6FE76F;
+            box-shadow: 0 4px 0 0 #7ED37E;
+        }
+        .reject {
+            color: #FFF;
+            background: tomato;
+            padding: 3px 4px;
+            box-shadow: 0 4px 0 0 #CB4949;
+        }
+        .reject:hover {
+            background: rgb(255, 147, 128);
+            box-shadow: 0 4px 0 0 #EF8282;
+        }
+    </style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+            $(function() {
+              $('a.accept').on('click', function(e) {
+                e.preventDefault()
+                $.getJSON('/accept',
+                    function(data) {
+                  //do nothing
+                });
+                return false;
+              });
+            });
+            $(function() {
+              $('a.reject').on('click', function(e) {
+                e.preventDefault()
+                $.getJSON('/reject',
+                    function(data) {
+                  //do nothing
+                });
+                return false;
+              });
+            });
+    </script>
+</head>
+<body>
+    <!-- <div class="text-center">
+        <form action="{{url_for('upload')}}" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" />
+            <input type="submit" value="Upload" />
+        </form>
+    </div> -->
+    <nav class="light-blue lighten-1" role="navigation">   
+        <ul class="right hide-on-med-and-down">     
+          </ul>   
+        <ul id="nav-mobile" class="sidenav">   
+        </ul>
+         <a href="#" data-target="nav-mobile" class="sidenav-trigger">
+         <i class="material-icons"></i></a> 
+        </div>
+       </nav>
+         <div class="section no-pad-bot" id="index-banner">  
+        <div class="container">
+         <br><br>
+         <div class="row center"> 
+             <h1 class="header center orange-text">Transactions</h1><br>
+                   <div class="row center">       
+                      <h5 class="header col s12 light">Upload latest data
+         <br> </h5>   
+     
+     </div>      <div class="row" > 
+              <form action="{{url_for('get_data')}}" method="POST" enctype="multipart/form-data">  
+             <b>file </b><input type ="file"  name="bank_file"></b> 
+             <b>Approver</b>
+             <input type="text" name="approvername" value="{{request.form['approvername']}}" readonly />
+             <!-- <input list="Approver" type="text"  name="approvername"><br>
+             <datalist id="Approver">
+               <option value="David" />
+               <option value="Monica" />
+               <option value="Irien" />
+             </datalist> -->
+             <div class="row center"><br><br>
+             <input  type="submit" value="submit" />  
+             </div>
+         </form>   
+          
+     </div>        
+     <div>    
+         <br>
+         {% for table in tables %}
+            <tr>
+                <td><form action="" method="post">
+                        <input type="hidden" name="title" value="{{ table }}"> {{ table|safe }}
+                    </form>
+                </td>
+
+                <!-- <td>
+                <input class="form__submit form__input" type="submit" value="select" name="select_song"/>
+                </td> -->
+            </tr>          
+         {% endfor %}
+         <br>
+         <br>
+         <!-- {{dataframe}} -->
+         <!-- <form method="POST">
+            <table id="data" class="table table-striped">
+              <thead>
+
+              </thead>
+              <tbody>
+                {% for table in table %}
+                  <tr>
+                    <td><input name="title" value="{{ table }}"> {{ table }}</td>
+                    <td>
+                      <input class="form__submit form__input" type="submit" value="select" name="select_song"/>
+                    </td>
+                  </tr>
+                {% endfor %}
+                {{dataframe}}
+              </tbody>
+            </table>
+          </form> -->
+</body>
+</html>

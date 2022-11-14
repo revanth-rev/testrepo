@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accepted Transactions</title>
+</head>
+<body>
+    <nav class="light-blue lighten-1" role="navigation">   
+        <ul class="right hide-on-med-and-down">     
+        </ul>   
+        <ul id="nav-mobile" class="sidenav">   
+        </ul>
+         <a href="#" data-target="nav-mobile" class="sidenav-trigger">
+         <i class="material-icons"></i></a> 
+        </div>
+    </nav>
+    <div class="section no-pad-bot" id="index-banner">  
+        <div class="container">
+            <br />
+            <div class="row center"> 
+                <h1 class="header center orange-text">Accepted Transactions</h1><br />
+            </div>
+        </div>       
+        <div>    
+            <br>
+            {% for table in tables %}
+                {{ table|safe }}           
+            {% endfor %}
+            <br>
+            <br>
+            {{dataframe}}
+        </div>
+    </div>
+</body>
+</html>
