@@ -40,57 +40,7 @@
     }
   </style>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script type=text/javascript>
-    // $(function() {
-    //   $('a.accept').on('click', function(e) {
-    //     e.preventDefault()
-    //     $.getJSON('/accept',
-    //         function(data) {
-    //       //do nothing
-    //     });
-    //     return false;
-    //   });
-    // });
-    // $(function() {
-    //   $('a.reject').on('click', function(e) {
-    //     e.preventDefault()
-    //     $.getJSON('/reject',
-    //         function(data) {
-    //       //do nothing
-    //     });
-    //     return false;
-    //   });
-    // });
-    $(function() {
-      document.addEventListener('click', event => {
-        console.clear();
-        const allChecked = document.querySelectorAll(`[type='checkbox']:checked`);
-        const notChecked = document.querySelectorAll(`[type='checkbox']:not(:checked)`);
-        if(allChecked.length){
-          return allChecked.forEach(cb => {
-            const row = cb.closest(`tr`);
-            console.log(`checked row (#${row.rowIndex})`);
-          })
-        }
-        if(notChecked.length){
-          return notChecked.forEach(cb => {
-            const row = cb.closest(`tr`);
-            console.log(`not checked row (#${row.rowIndex})`);
-          })
-        }
-          return console.log(`none checked`)
-      })
-    })
-  </script>
-  <script>
-    function toggle(source) {
-      checkboxes = document.getElementsByName('action');
-      for (var i = 0, n = checkboxes.length; i < n; i++) {
-        checkboxes[i].checked = source.checked;
-      }
-    }
-
-  </script>
+  
 </head>
 
 <body>
@@ -127,14 +77,14 @@
                <option value="Irien" />
              </datalist> -->
               <div class="row center"><br><br>
-                <input type="submit" name="submit" value="submit" />
+                <input type="submit" value="submit" />
               </div>
             </form>
 
         </div>
         <div>
           <br>
-          <form action="{{url_for('send_data')}}" method="post">
+          <form method="post">
             <table>
               {% for table in tables %}
               <tr>
@@ -143,7 +93,7 @@
               {% endfor %}
               <tr>
                 <td>
-                  <input type="submit" name="submit" value="Submit" />
+                  <input type="submit" name="submit" id="check" value="Submit" />
                 </td>
               </tr>
             </table>
@@ -164,25 +114,78 @@
          {% endfor %} -->
           <br>
           <br>
-          <!-- {{dataframe}} -->
-          <!-- <form method="POST">
-            <table id="data" class="table table-striped">
-              <thead>
-
-              </thead>
-              <tbody>
-                {% for table in table %}
-                  <tr>
-                    <td><input name="title" value="{{ table }}"> {{ table }}</td>
-                    <td>
-                      <input class="form__submit form__input" type="submit" value="select" name="select_song"/>
-                    </td>
-                  </tr>
-                {% endfor %}
-                {{dataframe}}
-              </tbody>
-            </table>
-          </form> -->
+          <script>
+            // document.getElementsByName('action').onclick = function() {
+            //   if(this.checked){
+            //     console.log('approved');
+            //   } else if(!this.checked){
+            //     console.log('rejected');
+            //   }
+            // }
+            // $(function() {
+            //   $('a.accept').on('click', function(e) {
+            //     e.preventDefault()
+            //     $.getJSON('/accept',
+            //         function(data) {
+            //       //do nothing
+            //     });
+            //     return false;
+            //   });
+            // });
+            // $(function() {
+            //   $('a.reject').on('click', function(e) {
+            //     e.preventDefault()
+            //     $.getJSON('/reject',
+            //         function(data) {
+            //       //do nothing
+            //     });
+            //     return false;
+            //   });
+            // });
+            document.getElementById('check').onclick=function() {
+              console.clear()
+              const checkboxes = document.getElementsByName('action');
+              checkboxes.forEach(cb => {
+                const row = cb.closest('tr');
+                if(cb.checked){
+                  $('table tr:eq(2)').each(function(){
+                    console.log(`checked row (#${row.rowIndex})`);
+                    alert($(this).text());
+                  });
+                }else{
+                  console.log(`not checked row (#${row.rowIndex})`);
+                }
+              });
+            }
+            // $(function() {
+              
+            //   document.addEventListener('click', event => {
+            //     console.clear();
+            //     const allChecked = document.querySelectorAll(`[type='checkbox']:checked`);
+            //     const notChecked = document.querySelectorAll(`[type='checkbox']:not(:checked)`);
+            //     if(allChecked.length){
+            //       return allChecked.forEach(cb => {
+            //         const row = cb.closest(`tr`);
+            //         console.log(`checked row (#${row.rowIndex})`);
+            //       })
+            //     }
+            //     if(notChecked.length){
+            //       return notChecked.forEach(cb => {
+            //         const row = cb.closest(`tr`);
+            //         console.log(`not checked row (#${row.rowIndex})`);
+            //       })
+            //     }
+            //       return console.log(`none checked`)
+            //   })
+            // })
+            function toggle(source) {
+              checkboxes = document.getElementsByName('action');
+              for (var i = 0, n = checkboxes.length; i < n; i++) {
+                checkboxes[i].checked = source.checked;
+              }
+            }
+        
+          </script>
 </body>
 
 </html>
