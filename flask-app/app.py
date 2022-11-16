@@ -1,4 +1,5 @@
 import os
+from io import StringIO
 import pandas as pd
 from flask import Flask, redirect, render_template, request, url_for
 from werkzeug.utils import secure_filename
@@ -34,7 +35,6 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     errors = {}
-    error = "error"
     if request.method == "POST":
         username = request.form['username']
         email = request.form['email']
@@ -48,8 +48,8 @@ def register():
             errors['password'] = 'Password should not be empty'
         if not confirm_password or not confirm_password.strip() or not password != confirm_password:
             errors['confirm_password'] = 'Confirm Password should not be empty'
-        print("Errors", error)
-    return render_template('register.html', errors=errors, error=error)
+        print("Errors", errors)
+    return render_template('register.html', errors=errors)
 
 
 @app.route('/home', methods=['GET', 'POST'])
@@ -83,15 +83,27 @@ def get_data():
        Raises exception if fails to get the data
     """
     file = request.files["bank_file"]
-    name = request.form["approvername"]
+    # name = request.form["approvername"]
     temp_dataframe = pd.read_csv(file)
-    temp_dataframe["Approver"] = name
-    temp_dataframe.insert(temp_dataframe.columns.get_loc("Approver") + 1, column='Action',
-                          value='<a href="#" class="accept">ACCEPT <span class="fa fa-check"></span></a> <a href="#" class="reject">REJECT <span class="fa fa-close"></span></a>')
+    temp_dataframe["Approver"] = ''
+    temp_dataframe.insert(temp_dataframe.columns.get_loc("Approver") + 1, column='<input type="checkbox" onclick="toggle(this)" />',
+                          value='<input type="checkbox" name="action" />')
+    # temp_dataframe.insert(temp_dataframe.columns.get_loc("Approver") + 1, column='Action',
+    #                       value='<a href="#" class="accept">ACCEPT <span class="fa fa-check"></span></a> <a href="#" class="reject">REJECT <span class="fa fa-close"></span></a>')
     temp_dataframe['Status'] = ''
+    print(temp_dataframe)
     temp_dataframe = temp_dataframe.style
+    # temp_list_headers = temp_dataframe.columns.values.tolist()
+    # temp_list = temp_dataframe.values.tolist().
+    # return render_template('home.html', table=temp_list, headers=temp_list_headers)
     return render_template('home.html', tables=[temp_dataframe.to_html(classes='data')],
                            titles=temp_dataframe.columns.values)
+
+@app.route('/send', methods = ['GET','POST'])
+def send_data():
+    if request.method == "POST":
+        data = request.form['title']
+        return data
 
 @app.route('/accept', methods=['GET', 'POST'])
 def accept_data():

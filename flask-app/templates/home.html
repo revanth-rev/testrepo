@@ -1,123 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <style>
-        body {
-         margin: 0;
-         background: white;
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <style>
+    body {
+      margin: 0;
+      background: white;
+    }
+    a {
+      text-decoration: none;
+    }
+
+    .accept {
+      color: #FFF;
+      background: #44CC44;
+      padding: 3px 4px;
+      box-shadow: 0 4px 0 0 #2EA62E;
+    }
+
+    .accept:hover {
+      background: #6FE76F;
+      box-shadow: 0 4px 0 0 #7ED37E;
+    }
+
+    .reject {
+      color: #FFF;
+      background: tomato;
+      padding: 3px 4px;
+      box-shadow: 0 4px 0 0 #CB4949;
+    }
+
+    .reject:hover {
+      background: rgb(255, 147, 128);
+      box-shadow: 0 4px 0 0 #EF8282;
+    }
+  </style>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type=text/javascript>
+    // $(function() {
+    //   $('a.accept').on('click', function(e) {
+    //     e.preventDefault()
+    //     $.getJSON('/accept',
+    //         function(data) {
+    //       //do nothing
+    //     });
+    //     return false;
+    //   });
+    // });
+    // $(function() {
+    //   $('a.reject').on('click', function(e) {
+    //     e.preventDefault()
+    //     $.getJSON('/reject',
+    //         function(data) {
+    //       //do nothing
+    //     });
+    //     return false;
+    //   });
+    // });
+    $(function() {
+      document.addEventListener('click', event => {
+        console.clear();
+        const allChecked = document.querySelectorAll(`[type='checkbox']:checked`);
+        const notChecked = document.querySelectorAll(`[type='checkbox']:not(:checked)`);
+        if(allChecked.length){
+          return allChecked.forEach(cb => {
+            const row = cb.closest(`tr`);
+            console.log(`checked row (#${row.rowIndex})`);
+          })
         }
-        a{
-            text-decoration: none;
+        if(notChecked.length){
+          return notChecked.forEach(cb => {
+            const row = cb.closest(`tr`);
+            console.log(`not checked row (#${row.rowIndex})`);
+          })
         }
-        .accept {
-            color: #FFF;
-            background: #44CC44;
-            padding: 3px 4px;
-            box-shadow: 0 4px 0 0 #2EA62E;
-        }
-        .accept:hover {
-            background: #6FE76F;
-            box-shadow: 0 4px 0 0 #7ED37E;
-        }
-        .reject {
-            color: #FFF;
-            background: tomato;
-            padding: 3px 4px;
-            box-shadow: 0 4px 0 0 #CB4949;
-        }
-        .reject:hover {
-            background: rgb(255, 147, 128);
-            box-shadow: 0 4px 0 0 #EF8282;
-        }
-    </style>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type=text/javascript>
-            $(function() {
-              $('a.accept').on('click', function(e) {
-                e.preventDefault()
-                $.getJSON('/accept',
-                    function(data) {
-                  //do nothing
-                });
-                return false;
-              });
-            });
-            $(function() {
-              $('a.reject').on('click', function(e) {
-                e.preventDefault()
-                $.getJSON('/reject',
-                    function(data) {
-                  //do nothing
-                });
-                return false;
-              });
-            });
-    </script>
+          return console.log(`none checked`)
+      })
+    })
+  </script>
+  <script>
+    function toggle(source) {
+      checkboxes = document.getElementsByName('action');
+      for (var i = 0, n = checkboxes.length; i < n; i++) {
+        checkboxes[i].checked = source.checked;
+      }
+    }
+
+  </script>
 </head>
+
 <body>
-    <!-- <div class="text-center">
-        <form action="{{url_for('upload')}}" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" />
-            <input type="submit" value="Upload" />
-        </form>
-    </div> -->
-    <nav class="light-blue lighten-1" role="navigation">   
-        <ul class="right hide-on-med-and-down">     
-          </ul>   
-        <ul id="nav-mobile" class="sidenav">   
-        </ul>
-         <a href="#" data-target="nav-mobile" class="sidenav-trigger">
-         <i class="material-icons"></i></a> 
+  <nav class="light-blue lighten-1" role="navigation">
+    <ul class="right hide-on-med-and-down">
+    </ul>
+    <ul id="nav-mobile" class="sidenav">
+    </ul>
+    <a href="#" data-target="nav-mobile" class="sidenav-trigger">
+      <i class="material-icons"></i></a>
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <div class="row center">
+        <h1 class="header center orange-text">Transactions</h1><br>
+        <div class="row center">
+          <h5 class="header col s12 light">Upload latest data
+            <br>
+          </h5>
+
         </div>
-       </nav>
-         <div class="section no-pad-bot" id="index-banner">  
-        <div class="container">
-         <br><br>
-         <div class="row center"> 
-             <h1 class="header center orange-text">Transactions</h1><br>
-                   <div class="row center">       
-                      <h5 class="header col s12 light">Upload latest data
-         <br> </h5>   
-     
-     </div>      <div class="row" > 
-              <form action="{{url_for('get_data')}}" method="POST" enctype="multipart/form-data">  
-             <b>file </b><input type ="file"  name="bank_file"></b> 
-             <b>Approver</b>
-             <input type="text" name="approvername" value="{{request.form['approvername']}}" readonly />
-             <!-- <input list="Approver" type="text"  name="approvername"><br>
+        <div class="row">
+          <form action="{{url_for('get_data')}}" method="POST" enctype="multipart/form-data">
+            <form action="" method="POST" enctype="multipart/form-data">
+              <b>file </b><input type="file" name="bank_file"></b>
+              <!-- <b>Approver</b>
+             <input type="text" name="approvername" value="{{request.form['approvername']}}" readonly /> -->
+              <!-- <input list="Approver" type="text"  name="approvername"><br>
              <datalist id="Approver">
                <option value="David" />
                <option value="Monica" />
                <option value="Irien" />
              </datalist> -->
-             <div class="row center"><br><br>
-             <input  type="submit" value="submit" />  
-             </div>
-         </form>   
-          
-     </div>        
-     <div>    
-         <br>
-         {% for table in tables %}
-            <tr>
-                <td><form action="" method="post">
-                        <input type="hidden" name="title" value="{{ table }}"> {{ table|safe }}
-                    </form>
-                </td>
+              <div class="row center"><br><br>
+                <input type="submit" name="submit" value="submit" />
+              </div>
+            </form>
 
-                <!-- <td>
-                <input class="form__submit form__input" type="submit" value="select" name="select_song"/>
-                </td> -->
-            </tr>          
-         {% endfor %}
-         <br>
-         <br>
-         <!-- {{dataframe}} -->
-         <!-- <form method="POST">
+        </div>
+        <div>
+          <br>
+          <form action="{{url_for('send_data')}}" method="post">
+            <table>
+              {% for table in tables %}
+              <tr>
+                <td><input type="hidden" name="title" value="{{ table }}">{{table| safe}}</td>
+              </tr>
+              {% endfor %}
+              <tr>
+                <td>
+                  <input type="submit" name="submit" value="Submit" />
+                </td>
+              </tr>
+            </table>
+          </form>
+          <!-- {% for table in table %}
+         <form action="{{url_for('send_data')}}" method="post">
+            <tr>
+                <td>
+                  <input type="hidden" name="title" value="{{ table }}"> {{ table }}
+                </td>
+            </tr>    
+            <tr>
+              <td>
+                <input type="submit" name="submit" value="Submit"/>
+              </td>
+            </tr>  
+          </form>    
+         {% endfor %} -->
+          <br>
+          <br>
+          <!-- {{dataframe}} -->
+          <!-- <form method="POST">
             <table id="data" class="table table-striped">
               <thead>
 
@@ -136,4 +184,5 @@
             </table>
           </form> -->
 </body>
+
 </html>
